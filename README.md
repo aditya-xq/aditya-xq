@@ -12,29 +12,21 @@ I firmly believe that any concept is learnable if approached with the right mind
 
 ⛷️ How can I assist you?
 
-✅ Content Strategy
-
-✅ Tech/AI Consulting
-
-✅ Developer Advocate
-
-✅ Community Manager
-
-✅ Social Media Content
-
-✅ Sponsored LinkedIn Post
-
-✅ Tech Tutorial/Blog Writing
-
-✅ Webinars + Masterclasses
-
-✅ Sponsored Newsletter Content
-
-✅ Sponsored Content on The Research Nest
+✅ Content Strategy  
+✅ Tech/AI Consulting  
+✅ Developer Advocate  
+✅ Community Manager  
+✅ Social Media Content  
+✅ Sponsored LinkedIn Post  
+✅ Tech Tutorial/Blog Writing  
+✅ Webinars + Masterclasses  
+✅ Sponsored Newsletter Content  
+✅ Sponsored Content on The Research Nest  
 
 To partner with me, please reach out directly via LinkedIn. I prefer efficient async communication via text.
 
 💡 Here are two quotes that resonate with me:
+
 "No matter what anybody tells you, words and ideas can change the world." -Robin Williams as John Keats, Dead Poets Society.
 
 "...while some may see them as the crazy ones, we see genius, because the people who are crazy enough to think that they can change the world, are the ones who do." -Steve Jobs.
