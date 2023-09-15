@@ -12,8 +12,8 @@ I firmly believe that any concept is learnable if approached with the right mind
 
 ⛷️ How can I assist you?
 
-✅ Content Strategy
-✅ Tech/AI Consulting
+✅ Content Strategy.
+✅ Tech/AI Consulting.
 ✅ Developer Advocate
 ✅ Community Manager
 ✅ Social Media Content
