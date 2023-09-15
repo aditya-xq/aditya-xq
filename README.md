@@ -18,9 +18,9 @@ I firmly believe that any concept is learnable if approached with the right mind
 ✅ Community Manager  
 ✅ Social Media Content  
 ✅ Sponsored LinkedIn Post  
+✅ Tech Tutorial/Blog Writing  
 ✅ Webinars + Masterclasses  
 ✅ Sponsored Content on TRN  
-✅ Tech Tutorial/Blog Writing  
 ✅ Sponsored Newsletter Content
 
 To partner with me, please reach out directly via LinkedIn. I prefer efficient async communication via text.
