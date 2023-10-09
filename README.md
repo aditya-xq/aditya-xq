@@ -6,7 +6,7 @@ Kon'nichiwa! It's a pleasure to e-meet you. I'm a full-stack software engineer w
 
 I firmly believe that any concept is learnable if approached with the right mindset.
 
-🚀 How can I propel your projects forward?  
+🚀 How can I propel you forward?  
 📚 Content Strategy  
 🤖 Tech/AI Consulting  
 👩‍💻 Developer Advocate  
