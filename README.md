@@ -10,7 +10,6 @@ I firmly believe that any concept is learnable if approached with the right mind
 📚 Content Strategy  
 🤖 Tech/AI Consulting  
 👩‍💻 Developer Advocate  
-🌐 Community Manager  
 📱 Social Media Content  
 🔗 Sponsored LinkedIn Post  
 ✍️ Tech Tutorial/Blog Writing  
