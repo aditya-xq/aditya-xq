@@ -9,10 +9,10 @@ Any concept is learnable if approached with the right mindset.
 🚀 How can I help you?  
 🤖 Tech/AI Consulting  
 👩‍💻 Developer Advocate 
-🔗 Sponsored LinkedIn Post  
-✍️ Tech Tutorial/Blog Writing   
-🌟 Sponsored Content on TRN  
-💌 Sponsored Newsletter Content
+🔗 Sponsored LinkedIn Post 
+✍️ Tech Tutorial/Blog Writing 
+🌟 Sponsored Content on TRN 
+💌 Sponsored Newsletter Content 
 
 To partner with me, please reach out directly via LinkedIn. I prefer efficient async communication via text.
 
