@@ -1,6 +1,6 @@
 👋 Kon'nichiwa!
 
-I'm a full-stack and applied AI software engineer with 5 years of expertise in React, NextJS, Svelte, NodeJS, and Python across 15+ projects, 150+ technical articles, and 200K+ lines of code.
+I'm a full-stack and applied AI software engineer with 5 years of expertise in React, NextJS, Svelte, NodeJS, and Python across 15+ projects, 150+ technical articles, and 500K+ lines of code.
 
 "If you ask me a question and I don't know the answer, I'm gonna tell you that I don't know, but I bet you what? I know how to find the answer and I will find the answer"-The Pursuit of Happyness.
 
