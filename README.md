@@ -8,7 +8,7 @@ I'm a full-stack and applied AI software engineer with 6 years of expertise in R
 I firmly believe that any concept is learnable if approached with the right mindset. 
 
 🚀 Work with me? 
-- 🔗 Sponsored content on LinkedIn/Medium. 
+- 🔗 Collab on LinkedIn/Medium. 
 - 🤖 Consulting on AI-powered productivity and automation. 
 - ✍️ Tech articles for developer-focused engineering blogs. 
 
