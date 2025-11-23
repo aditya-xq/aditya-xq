@@ -102,3 +102,6 @@ Tech agnostic. Context-first. Results-driven.
 **🌐 Portfolio:** https://aditya-xq.github.io  
 
 <p align="center">✨ Thanks for stopping by — Let's build something meaningful.</p>
+<p align="center">
+  <img src="footer.svg" alt="footer"/>
+</p>
