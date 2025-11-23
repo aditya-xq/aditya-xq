@@ -2,20 +2,18 @@
   <img src="/assets/hero.svg" alt="hero img"/>
   <p><img src="https://visitor-badge.laobi.icu/badge?page_id=aditya-xq" /></p>
 </p>
-
-<h2 align="center">👋 Kon'nichiwa! I'm a full-stack & applied AI software engineer building delightful developer experiences.</h2>
-
 <p align="center">
-  I’ve worked across 15+ projects, written 150+ technical articles, and love simplifying complexity.<br/>
+  I'm a full-stack & applied AI software engineer building delightful developer experiences. I’ve worked across 15+ projects, written 150+ technical articles, and love simplifying complexity.<br/>
   I believe any concept is learnable with the right mindset.
 </p>
-
----
 
 ## 🌱 Personal Philosophy  
 > “If you ask me a question and I don't know the answer, I'm gonna tell you that I don't know.  
 > But I bet you what? I know how to find the answer — and I **will** find the answer.”  
 > — *The Pursuit of Happyness*
+
+**Activity Graph**  
+<p><img src="https://github-readme-activity-graph.vercel.app/graph?username=aditya-xq&theme=github-dark&hide_border=true&radius=8" /></p>
 
 <p align="center">
   <img height="150" src="https://github-readme-stats.vercel.app/api?username=aditya-xq&show_icons=true&theme=radical&hide_border=true&rank_icon=github" />
@@ -40,7 +38,7 @@
   <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=aditya-xq&theme=radical&utcOffset=5.5" height="150"/>
 </p>
 
-# 🚀 Featured Projects
+## 🚀 Featured Projects
 
 <p align="center">
   <a href="https://github.com/aditya-xq/AutoProject"><img src="https://img.shields.io/badge/AutoProject-SvelteKit-blue?style=for-the-badge&logo=svelte" /></a>
@@ -49,10 +47,7 @@
   <a href="https://github.com/aditya-xq/PicToWebP"><img src="https://img.shields.io/badge/PicToWebP-Rust%20%2B%20Python-orange?style=for-the-badge&logo=python" /></a>
 </p>
 
-**Activity Graph**  
-<p><img src="https://github-readme-activity-graph.vercel.app/graph?username=aditya-xq&theme=github-dark&hide_border=true&radius=8" /></p>
-
-# 🤝 Work With Me
+## 🤝 Work With Me
 
 - 🤖 AI-powered productivity & automation systems  
 - 🧠 Applied AI + Full-stack apps (React, Next.js, SvelteKit, Node, Python)  
@@ -62,9 +57,9 @@
 Give me a **problem, vision, or desired outcome** — I’ll figure out the rest.  
 Tech agnostic. Context-first. Results-driven.
 
-# 📬 Contact  
+## 📬 Contact  
 **📧 Email:** adityavivek.xq@gmail.com  
-**🔗 Best for collaborations:** LinkedIn - https://www.linkedin.com/in/aditya-vivek-thota
+**🔗 Best for collaborations:** LinkedIn - https://www.linkedin.com/in/aditya-vivek-thota 
 **🌐 Portfolio:** https://aditya-xq.github.io 
 
 <br/>
