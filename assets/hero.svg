@@ -18,9 +18,9 @@
       <stop offset="100%" stop-color="#ff00d4" stop-opacity="0.65"/>
     </linearGradient>
 
-    <!-- glow filter for stronger neon effect -->
+    <!-- subtler glow for neon (reduced blur so text reads thinner/crisper) -->
     <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
       <feColorMatrix in="blur" type="matrix" values="
          1 0 0 0 0
          0 1 0 0 0
@@ -37,9 +37,10 @@
   <rect width="100%" height="100%" fill="url(#cyberpunkGrad)" rx="12"/>
   <rect x="4" y="4" width="992" height="192" fill="none" stroke="url(#neonSoft)" stroke-width="6" rx="12" filter="url(#neonGlow)"/>
 
-  <!-- primary name with heavier weight, glow and saturated neon -->
-  <text x="50%" y="44%" text-anchor="middle" fill="url(#neon)" font-size="48px" font-family="Segoe UI, Ubuntu, sans-serif" font-weight="800"
-        stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" filter="url(#neonGlow)">
+  <!-- primary name: thinner weight, slightly smaller size, crisp rendering with subtle glow -->
+  <text x="50%" y="44%" text-anchor="middle" fill="url(#neon)" font-size="42px"
+        font-family="Segoe UI, Ubuntu, sans-serif" font-weight="600"
+        letter-spacing="0.2px" filter="url(#neonGlow)" style="paint-order:normal;">
     Aditya Vivek Thota
   </text>
 
