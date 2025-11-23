@@ -1,7 +1,6 @@
 <p align="center">
   <img src="/assets/hero.svg" alt="hero img"/>
 </p>
-<br />
 
 <h2 align="center">👋 Kon'nichiwa! I'm a full-stack & applied AI software engineer building delightful developer experiences.</h2>
 
@@ -99,9 +98,7 @@ Tech agnostic. Context-first. Results-driven.
 # 📬 Contact  
 **📧 Email:** adityavivek.xq@gmail.com  
 **🔗 Best for collaborations:** LinkedIn  
-**🌐 Portfolio:** https://aditya-xq.github.io  
+**🌐 Portfolio:** https://aditya-xq.github.io 
 
+<br/>
 <p align="center">✨ Thanks for stopping by — Let's build something meaningful.</p>
-<p align="center">
-  <img src="/assets/footer.svg" alt="footer"/>
-</p>
