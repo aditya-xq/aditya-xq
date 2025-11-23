@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="hero.svg" alt="hero img"/>
+  <img src="/assets/hero.svg" alt="hero img"/>
 </p>
 <br />
 
@@ -32,7 +32,7 @@
 
 ---
 
-# 🧩 Metrics — Clean, Elegant, Insightful UX
+# 🧩 Metrics
 
 ### **📌 Core Profile Metrics**
 | Metric | Value / Description |
@@ -103,5 +103,5 @@ Tech agnostic. Context-first. Results-driven.
 
 <p align="center">✨ Thanks for stopping by — Let's build something meaningful.</p>
 <p align="center">
-  <img src="footer.svg" alt="footer"/>
+  <img src="/assets/footer.svg" alt="footer"/>
 </p>
