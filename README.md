@@ -1,27 +1,22 @@
 <p align="center">
   <img src="/assets/hero.svg" alt="hero img"/>
-  <p><img src="https://visitor-badge.laobi.icu/badge?page_id=aditya-xq" /></p>
-</p>
-<p align="center">
-  I'm a full-stack & applied AI software engineer building delightful developer experiences. I’ve worked across 15+ projects, written 150+ technical articles, and love simplifying complexity.<br/>
-  I believe any concept is learnable with the right mindset.
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=aditya-xq" />
+  <img height="170" src="https://github-readme-streak-stats.herokuapp.com/?user=aditya-xq&theme=highcontrast&hide_border=true" />
 </p>
 
-## 🌱 Personal Philosophy  
+I'm a full-stack & applied AI software engineer building delightful developer experiences. I’ve worked across 15+ projects, written 150+ technical articles, and love simplifying complexity. I believe any concept is learnable with the right mindset.
+
+### 🌱 Personal Philosophy  
 > “If you ask me a question and I don't know the answer, I'm gonna tell you that I don't know.  
 > But I bet you what? I know how to find the answer — and I **will** find the answer.”  
 > — *The Pursuit of Happyness*
 
-**Activity Graph**  
+## Activity Graph  
 <p><img src="https://github-readme-activity-graph.vercel.app/graph?username=aditya-xq&theme=github-dark&hide_border=true&radius=8" /></p>
 
 <p align="center">
   <img height="150" src="https://github-readme-stats.vercel.app/api?username=aditya-xq&show_icons=true&theme=radical&hide_border=true&rank_icon=github" />
   <img height="150" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aditya-xq&layout=compact&theme=radical&hide_border=true" />
-</p>
-
-<p align="center">
-  <img height="170" src="https://github-readme-streak-stats.herokuapp.com/?user=aditya-xq&theme=radical&hide_border=true" />
 </p>
 
 <p align="center">
@@ -59,8 +54,7 @@ Tech agnostic. Context-first. Results-driven.
 
 ## 📬 Contact  
 **📧 Email:** adityavivek.xq@gmail.com  
-**🔗 Best for collaborations:** LinkedIn - https://www.linkedin.com/in/aditya-vivek-thota 
-**🌐 Portfolio:** https://aditya-xq.github.io 
-
+**🔗 Best for collaborations:** LinkedIn - https://www.linkedin.com/in/aditya-vivek-thota  
+**🌐 Portfolio:** https://aditya-xq.github.io  
 <br/>
 <p align="center">✨ Thanks for stopping by — Let's build something meaningful.</p>
