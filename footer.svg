@@ -1,91 +1,24 @@
-<svg width="100%" height="120" viewBox="0 0 1000 120" xmlns="http://www.w3.org/2000/svg" aria-label="Footer - Aditya Vivek Thota" preserveAspectRatio="xMinYMin meet">
-  <title>Footer - Aditya Vivek Thota</title>
-  <defs>
-    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="0">
-      <stop offset="0%" stop-color="#00eaff"/>
-      <stop offset="50%" stop-color="#e500ff"/>
-      <stop offset="100%" stop-color="#00eaff"/>
-    </linearGradient>
-  </defs>
+  <svg width="100%" height="120" viewBox="0 0 1000 160" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <defs>
+      <linearGradient id="footerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0d0d0d"/>
+        <stop offset="100%" stop-color="#1a1a1a"/>
+      </linearGradient>
 
-  <!-- background -->
-  <rect x="8" y="8" width="984" height="104" fill="#0b0b0b" rx="12"/>
+      <linearGradient id="footerNeon" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#00eaff"/>
+        <stop offset="100%" stop-color="#e500ff"/>
+      </linearGradient>
+    </defs>
 
-  <!-- neon bar -->
-  <rect x="26" y="16" width="948" height="2" fill="url(#g1)" opacity="0.95" rx="1"/>
+    <rect width="100%" height="100%" rx="10" fill="url(#footerBg)"/>
 
-  <!-- left panel -->
-  <g transform="translate(26,26)">
-    <rect width="360" height="72" fill="rgba(255,255,255,0.02)" stroke="url(#g1)" stroke-width="0.6" rx="8"/>
-    <!-- visitor badge (inline badge artwork) -->
-    <g transform="translate(10,12)">
-      <rect width="88" height="36" rx="6" fill="#071427"/>
-      <text x="44" y="22" font-family="Inter, system-ui" font-size="10" fill="#e6f7ff" text-anchor="middle">visitors</text>
-    </g>
+    <!-- Soft top border line -->
+    <line x1="20" y1="20" x2="980" y2="20" stroke="url(#footerNeon)" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
 
-    <!-- Followers badge (inline shields-like) -->
-    <g transform="translate(110,8)">
-      <rect width="120" height="22" rx="4" fill="#0f1724"/>
-      <text x="10" y="16" font-family="Inter, system-ui" font-size="10" fill="#9aa4b2">Followers</text>
-      <rect x="72" y="1" width="46" height="20" rx="3" fill="#0ea5e9"/>
-      <text x="95" y="16" font-family="Inter, system-ui" font-size="10" fill="#032a38" font-weight="700" text-anchor="middle">--</text>
-    </g>
-
-    <!-- Stars badge -->
-    <g transform="translate(236,8)">
-      <rect width="120" height="22" rx="4" fill="#0f1724"/>
-      <text x="10" y="16" font-family="Inter, system-ui" font-size="10" fill="#9aa4b2">Stars</text>
-      <rect x="72" y="1" width="46" height="20" rx="3" fill="#e500ff"/>
-      <text x="95" y="16" font-family="Inter, system-ui" font-size="10" fill="#fff" font-weight="700" text-anchor="middle">--</text>
-    </g>
-
-    <text x="10" y="62" font-family="Inter, system-ui" font-size="11" fill="#9aa4b2">Live visitors · followers · stars</text>
-  </g>
-
-  <!-- center panel -->
-  <g transform="translate(410,26)">
-    <rect width="360" height="72" fill="rgba(255,255,255,0.02)" stroke="url(#g1)" stroke-width="0.6" rx="8"/>
-    <text x="20" y="34" font-family="Inter, system-ui" font-size="13" font-weight="700" fill="#e6f7ff">Aditya Vivek Thota</text>
-    <text x="20" y="52" font-family="Inter, system-ui" font-size="11" fill="#9aa4b2">Full-Stack · Applied AI · 6.5 YoE · 15+ projects · 150+ articles</text>
-    <text x="280" y="50" font-family="Inter, system-ui" font-size="10" fill="#7f8b98">✉️ adityavivek.xq@gmail.com</text>
-  </g>
-
-  <!-- right panel -->
-  <g transform="translate(800,30)">
-    <rect width="200" height="72" fill="rgba(255,255,255,0.02)" stroke="url(#g1)" stroke-width="0.6" rx="8"/>
-
-    <!-- GitHub -->
-    <g transform="translate(14,18)" aria-label="GitHub">
-      <title>GitHub</title>
-      <path fill="#cbd5e1" d="M12 .5C5.73.5.5 5.74.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.35-1.3-1.71-1.3-1.71-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.72 1.27 3.38.97.11-.75.41-1.27.75-1.56-2.56-.29-5.26-1.28-5.26-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18.92-.26 1.9-.39 2.88-.39.98 0 1.96.13 2.88.39 2.21-1.49 3.18-1.18 3.18-1.18.63 1.58.23 2.75.11 3.04.74.81 1.19 1.84 1.19 3.1 0 4.43-2.71 5.4-5.29 5.68.42.37.79 1.1.79 2.22 0 1.6-.02 2.89-.02 3.28 0 .31.21.68.8.56C20.71 21.39 24 17.08 24 12c0-6.26-5.23-11.5-12-11.5z"/>
-    </g>
-
-    <!-- LinkedIn -->
-    <g transform="translate(64,18)" aria-label="LinkedIn">
-      <title>LinkedIn</title>
-      <path fill="#cbd5e1" d="M4.98 3.5C3.34 3.5 2 2.16 2 0.52S3.34-2.46 4.98-2.46 7.96-1.12 7.96.52 6.62 3.5 4.98 3.5zM0 7.5h9.97V24H0zM14.5 7.5H24V24h-9.5z"/>
-    </g>
-
-    <!-- Medium -->
-    <g transform="translate(112,18)" aria-label="Medium">
-      <title>Medium</title>
-      <path fill="#cbd5e1" d="M3 6c.3-.1.6-.2.9-.2 1.2 0 2.1.9 2.1 2.1 0 .2 0 .4-.1.6L10 15v3H0V7l3 0zM14 6l6 12h-4L14 9l-4 9H6L11 6h3z"/>
-    </g>
-
-    <!-- X -->
-    <g transform="translate(14,54)" aria-label="X">
-      <title>X</title>
-      <path fill="#cbd5e1" d="M22.46 6c-.77.35-1.6.59-2.46.7.89-.53 1.57-1.37 1.89-2.38-.83.5-1.75.86-2.72 1.05C18.3 4.2 17.14 3.6 15.86 3.6c-2.36 0-4.27 1.9-4.27 4.24 0 .33.03.65.1.96C7.69 8.56 4.07 6.7 1.64 3.9c-.36.63-.57 1.37-.57 2.16 0 1.49.76 2.8 1.92 3.57-.7-.02-1.36-.21-1.94-.52v.05c0 2.08 1.48 3.81 3.45 4.2-.36.1-.74.15-1.13.15-.28 0-.55-.03-.81-.08.56 1.77 2.18 3.06 4.1 3.1-1.5 1.18-3.4 1.88-5.46 1.88-.35 0-.7-.02-1.05-.06 1.95 1.25 4.27 1.99 6.77 1.99 8.1 0 12.54-6.72 12.54-12.55v-.57C21.39 7.6 21.98 6.84 22.46 6z"/>
-    </g>
-
-    <!-- YouTube -->
-    <g transform="translate(64,54)" aria-label="YouTube">
-      <title>YouTube</title>
-      <path fill="#cbd5e1" d="M21 7s-.2-1.5-1-2.1C18.4 4 12 4 12 4s-6.4 0-8 .9C3.2 5.5 3 7 3 7S2.8 9 2.8 11v2c0 2 .2 4 2.2 4s9 0 9 0 6.4 0 8-.9c.8-.6 1-2.1 1-2.1s.2-2 .2-4v-2c0-2-.2-4-.2-4zM10 13V8l5 2-5 3z"/>
-    </g>
-
-  </g>
-
-  <!-- footer text -->
-  <text x="30" y="110" font-family="Inter, system-ui" font-size="10" fill="#7f8b98">© <tspan fill="#e6f7ff" font-weight="700">Aditya Vivek Thota</tspan> · Built with care · Minimal • Cyber-neon</text>
-</svg>
+    <!-- Quote -->
+    <text x="50%" y="65%" text-anchor="middle" font-size="20" fill="#cccccc" font-family="Segoe UI, Ubuntu, sans-serif">
+      “Build with clarity. Ship with confidence.”
+    </text>
+  </svg>
