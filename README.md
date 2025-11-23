@@ -1,14 +1,12 @@
 <p align="center">
   <img src="/assets/hero.svg" alt="hero img"/>
 </p>
-<p align="center"><img src="https://visitor-badge.laobi.icu/badge?page_id=aditya-xq" /></p>
+<p align="center"><img src="https://visitor-badge.laobi.icu/badge?page_id=aditya-xq&left_color=purple&right_color=darkgreen" /></p>
 <p align="center">
   <img height="180" src="https://github-readme-streak-stats.herokuapp.com/?user=aditya-xq&theme=highcontrast&hide_border=true" />
   <img height="180" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aditya-xq&layout=compact&theme=highcontrast&hide_border=true" />
 </p>
 <p align="center"><img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=aditya-xq&theme=highcontrast" height="200"/></p>
-
-I'm a full-stack & applied AI software engineer building delightful developer experiences. I’ve worked across 15+ projects, written 200+ technical articles, and love simplifying complexity. I believe any concept is learnable with the right mindset.
 
 ### 🌱 Personal Philosophy  
 > “If you ask me a question and I don't know the answer, I'm gonna tell you that I don't know.  
