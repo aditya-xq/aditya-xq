@@ -1,51 +1,42 @@
-name: Update README assets (daily)
+name: Update Cached README Assets
 
-# run daily + manual trigger
 on:
   schedule:
-    # runs at 02:30 UTC every day (adjust as needed). Note: cron uses UTC.
+    # Runs at 02:30 UTC every day (08:00 IST)
     - cron: '30 2 * * *'
   workflow_dispatch:
 
 permissions:
-  contents: write   # allow committing to the repo
+  contents: write   # needed for pushing commits
 
 jobs:
-  fetch-and-commit:
+  update-assets:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository (with write access)
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: true
           fetch-depth: 0
+          persist-credentials: true  # enables push using GITHUB_TOKEN
 
-      - name: Ensure assets folder exists
-        run: |
-          mkdir -p assets
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-      - name: Install curl & jq
+      - name: Install dependencies (if needed)
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y curl jq
-
-      - name: Fetch assets (script)
-        env:
-          GITHUB_WORKSPACE: ${{ github.workspace }}
-        run: |
-          chmod +x .github/scripts/fetch-assets.sh
-          ./.github/scripts/fetch-assets.sh
-
-      - name: Commit & push if assets changed
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain)" ]; then
-            git add assets
-            git add assets-mapping.json || true
-            git commit -m "chore: update cached README assets (automated)"
-            git push
-            echo "Changes pushed."
-          else
-            echo "No changes in assets — nothing to commit."
+          # Only needed if your Node script uses any npm deps:
+          # If not using deps, this step is optional and safe to remove.
+          if [ -f "package.json" ]; then
+            npm ci || npm install
           fi
+
+      - name: Run asset fetcher
+        run: |
+          node .github/scripts/fetch-and-commit.js
+
+      - name: Show final status
+        run: |
+          echo "Asset update job finished."
