@@ -3,10 +3,10 @@
 </p>
 <p align="center"><img src="https://visitor-badge.laobi.icu/badge?page_id=aditya-xq&left_color=maroon&right_color=darkgreen" /></p>
 <p align="center">
-  <img height="180" src="https://github-readme-streak-stats.herokuapp.com/?user=aditya-xq&theme=highcontrast&hide_border=true" />
-  <img height="180" src="https://github-readme-stats.vercel.app/api/top-langs/?username=aditya-xq&layout=compact&theme=highcontrast&hide_border=true" />
+  <img height="180" src="/assets/streak-stats.svg" />
+  <img height="180" src="/assets/top-langs.svg" />
 </p>
-<p align="center"><img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=aditya-xq&theme=highcontrast" height="200"/></p>
+<p align="center"><img height="200" src="/assets/profile-details.svg" /></p>
 
 ### 🌱 Personal Philosophy  
 > “If you ask me a question and I don't know the answer, I'm gonna tell you that I don't know.  
@@ -16,7 +16,7 @@
 ## 📈 My GitHub activity at a glance
 
 <p align="center">
-  <img height="180" src="https://github-readme-stats.vercel.app/api?username=aditya-xq&show_icons=true&theme=highcontrast&hide_border=true&rank_icon=github" />
+  <img height="180" src="/assets/github-stats.svg" />
 </p>
 
 ## 🤝 Work With Me
