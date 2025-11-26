@@ -1,0 +1,51 @@
+name: Update README assets (daily)
+
+# run daily + manual trigger
+on:
+  schedule:
+    # runs at 02:30 UTC every day (adjust as needed). Note: cron uses UTC.
+    - cron: '30 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # allow committing to the repo
+
+jobs:
+  fetch-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository (with write access)
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Ensure assets folder exists
+        run: |
+          mkdir -p assets
+
+      - name: Install curl & jq
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y curl jq
+
+      - name: Fetch assets (script)
+        env:
+          GITHUB_WORKSPACE: ${{ github.workspace }}
+        run: |
+          chmod +x .github/scripts/fetch-assets.sh
+          ./.github/scripts/fetch-assets.sh
+
+      - name: Commit & push if assets changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add assets
+            git add assets-mapping.json || true
+            git commit -m "chore: update cached README assets (automated)"
+            git push
+            echo "Changes pushed."
+          else
+            echo "No changes in assets — nothing to commit."
+          fi
