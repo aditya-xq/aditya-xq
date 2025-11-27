@@ -12,12 +12,6 @@
 > But I bet you what? I know how to find the answer — and I **will** find the answer.”  
 > — *The Pursuit of Happyness*
 
-## 📈 My GitHub activity at a glance
-
-<p align="center">
-  <img height="180" src="/assets/github-stats.svg" />
-</p>
-
 ## 🤝 Work With Me
 
 - 🤖 AI-powered productivity & automation systems  
