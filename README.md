@@ -27,4 +27,4 @@ Tech agnostic. Context-first. Results-driven.
 **🔗 Best for collaborations:** DM on LinkedIn - https://www.linkedin.com/in/aditya-vivek-thota  
 **🌐 Portfolio:** https://aditya-xq.github.io  
 <br/>
-<p align="center">✨ Thanks for stopping by — May the force be with you.</p>
+<p align="center">✨ Thanks for stopping by! May the force be with you.</p>
