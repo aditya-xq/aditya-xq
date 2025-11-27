@@ -2,20 +2,18 @@
 /**
  * fetch-and-commit.js
  *
- * Usage:
- *  - Place at repo root or .github/scripts/
- *  - Ensure you have node >= 18 (global fetch available) OR run with node 18+
- *  - Create assets-to-fetch.json in repo root (script will create a sample and exit once)
- *  - Run: node fetch-and-commit.js
+ * - Expects assets-to-fetch.json (array of { url, out }) in repo root.
+ * - Fetches each URL, detects extension (Content-Type or magic bytes),
+ *   writes file only if content changed, and commits & pushes changed files.
+ * - Meant for GitHub Actions / local use. Assumes mapping exists (no sample created).
  *
- * In GitHub Actions:
- *  - actions/checkout@v4 (persist-credentials: true) + node setup -> run this script
- *  - The runner provides GITHUB_TOKEN for pushing back changes with default checkout settings.
+ * Requirements:
+ * - node >= 18 (global fetch available)
  *
- * The script:
- *  - fetches each mapping entry { url, out }
- *  - detects extension from Content-Type or file bytes
- *  - writes files only when changed, and commits & pushes if any change
+ * Behavior:
+ * - Concurrency: up to CONCURRENCY parallel fetches to speed up large mappings.
+ * - Safe write: creates folders as needed; writes only when buffer differs.
+ * - Git: config user.* if not set, `git add` changed files, commit, push.
  */
 
 import fs from "fs/promises";
@@ -29,108 +27,76 @@ const __dirname = path.dirname(__filename);
 
 const MAPPING_FILE = path.join(process.cwd(), "assets-to-fetch.json");
 const FETCH_TIMEOUT_MS = 30_000; // 30s
+const CONCURRENCY = 6; // modest parallelism
 
-function log(...args) {
-  console.log("[fetch-assets]", ...args);
-}
+/* ---------- small helpers ---------- */
 
-function mapCTypeToExt(ctypeRaw) {
-  if (!ctypeRaw) return "";
-  const ctype = ctypeRaw.split(";")[0].trim().toLowerCase();
-  switch (ctype) {
-    case "image/svg+xml":
-      return "svg";
-    case "image/png":
-      return "png";
-    case "image/jpeg":
-      return "jpg";
-    case "image/jpg":
-      return "jpg";
-    case "image/webp":
-      return "webp";
-    case "image/gif":
-      return "gif";
-    case "image/x-icon":
-    case "image/vnd.microsoft.icon":
-      return "ico";
-    case "text/plain":
-      return "txt";
-    case "application/json":
-      return "json";
-    default:
-      return "";
-  }
-}
+const log = (...args) => console.log("[fetch-assets]", ...args);
+const warn = (...args) => console.warn("[fetch-assets][WARN]", ...args);
+const errlog = (...args) => console.error("[fetch-assets][ERROR]", ...args);
+
+const ensureDirSync = (filePath) => {
+  const dir = path.dirname(filePath);
+  if (!fsSync.existsSync(dir)) fsSync.mkdirSync(dir, { recursive: true });
+};
+
+const hasExtension = (filename) => /\.[a-zA-Z0-9]+$/.test(filename);
+
+/* ---------- content-type -> ext map ---------- */
+
+const CTYPE_MAP = new Map([
+  ["image/svg+xml", "svg"],
+  ["image/png", "png"],
+  ["image/jpeg", "jpg"],
+  ["image/jpg", "jpg"],
+  ["image/webp", "webp"],
+  ["image/gif", "gif"],
+  ["image/x-icon", "ico"],
+  ["image/vnd.microsoft.icon", "ico"],
+  ["text/plain", "txt"],
+  ["application/json", "json"],
+]);
+
+const mapCTypeToExt = (ctypeRaw = "") => {
+  const key = ctypeRaw.split(";")[0].trim().toLowerCase();
+  return CTYPE_MAP.get(key) || "";
+};
+
+/* ---------- magic bytes / buffer detection ---------- */
 
 async function detectExtFromBuffer(buffer) {
-  // Check for SVG (text starts with <svg or contains <svg within first chunk)
   const head = buffer.subarray(0, Math.min(buffer.length, 2048));
   const headStr = head.toString("utf8").toLowerCase();
 
   if (headStr.includes("<svg")) return "svg";
-  // PNG magic bytes: 89 50 4E 47 0D 0A 1A 0A
-  if (buffer.length >= 8 && buffer.readUInt32BE(0) === 0x89504e47) return "png";
-  // JPEG magic: FF D8
-  if (buffer.length >= 2 && buffer[0] === 0xff && buffer[1] === 0xd8) return "jpg";
-  // GIF magic: "GIF87a" or "GIF89a"
+  if (buffer.length >= 8 && buffer.readUInt32BE(0) === 0x89504e47) return "png"; // PNG
+  if (buffer.length >= 2 && buffer[0] === 0xff && buffer[1] === 0xd8) return "jpg"; // JPEG
   if (headStr.startsWith("gif87a") || headStr.startsWith("gif89a")) return "gif";
-  // WEBP - "RIFF....WEBP"
   if (
     buffer.length >= 12 &&
     buffer.toString("ascii", 0, 4) === "RIFF" &&
     buffer.toString("ascii", 8, 12) === "WEBP"
-  ) {
+  )
     return "webp";
-  }
-  // ICO: 00 00 01 00
-  if (buffer.length >= 4 && buffer.readUInt16LE(0) === 0x0000 && buffer.readUInt16LE(2) === 0x0100) {
-    return "ico";
-  }
+  if (buffer.length >= 4 && buffer.readUInt16LE(0) === 0x0000 && buffer.readUInt16LE(2) === 0x0100)
+    return "ico"; // ICO
   return "";
 }
 
-function ensureDirSync(filePath) {
-  const dir = path.dirname(filePath);
-  if (!fsSync.existsSync(dir)) {
-    fsSync.mkdirSync(dir, { recursive: true });
+/* ---------- filesystem compare ---------- */
+
+async function isBufferEqualToFile(filePath, buf) {
+  try {
+    const existing = await fs.readFile(filePath);
+    if (existing.length !== buf.length) return false;
+    return existing.equals(buf);
+  } catch (err) {
+    if (err.code === "ENOENT") return false;
+    throw err;
   }
 }
 
-async function readMappingOrCreateSample() {
-  try {
-    const raw = await fs.readFile(MAPPING_FILE, "utf8");
-    const json = JSON.parse(raw);
-    if (!Array.isArray(json)) throw new Error("assets-to-fetch.json must be an array");
-    return json;
-  } catch (err) {
-    if (err.code === "ENOENT") {
-      // create sample and exit
-      const sample = [
-        {
-          url:
-            "https://visitor-badge.laobi.icu/badge?page_id=aditya-xq&left_color=maroon&right_color=darkgreen",
-          out: "assets/visitor-badge"
-        },
-        {
-          url:
-            "https://github-readme-streak-stats.herokuapp.com/?user=aditya-xq&theme=highcontrast&hide_border=true",
-          out: "assets/streak-stats"
-        },
-        {
-          url:
-            "https://github-readme-stats.vercel.app/api?username=aditya-xq&show_icons=true&theme=highcontrast&hide_border=true&rank_icon=github",
-          out: "assets/github-stats"
-        }
-      ];
-      await fs.writeFile(MAPPING_FILE, JSON.stringify(sample, null, 2), "utf8");
-      log(`Created sample ${path.basename(MAPPING_FILE)} — edit it with your URLs and re-run.`);
-      process.exit(0);
-    } else {
-      log("Error reading mapping file:", err.message);
-      throw err;
-    }
-  }
-}
+/* ---------- network fetch with abort ---------- */
 
 async function fetchWithTimeout(url, timeoutMs) {
   const controller = new AbortController();
@@ -138,9 +104,7 @@ async function fetchWithTimeout(url, timeoutMs) {
   try {
     const res = await fetch(url, { redirect: "follow", signal: controller.signal });
     clearTimeout(id);
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status} ${res.statusText}`);
-    }
+    if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
     const ctype = res.headers.get("content-type") || "";
     const buffer = Buffer.from(await res.arrayBuffer());
     return { buffer, ctype };
@@ -150,134 +114,146 @@ async function fetchWithTimeout(url, timeoutMs) {
   }
 }
 
-function hasExtension(filename) {
-  return /\.[a-zA-Z0-9]+$/.test(filename);
+/* ---------- read mapping (must exist) ---------- */
+
+async function readMappingOrFail() {
+  const raw = await fs.readFile(MAPPING_FILE, "utf8");
+  const parsed = JSON.parse(raw);
+  if (!Array.isArray(parsed)) throw new Error("assets-to-fetch.json must be an array of {url,out}");
+  return parsed;
 }
 
-async function compareBuffersEqual(aPath, buf) {
+/* ---------- git helpers ---------- */
+
+function safeQuoteForShell(s) {
+  // wrap in double quotes and escape inner double quotes
+  return `"${s.replace(/"/g, '\\"')}"`;
+}
+
+function ensureGitUserConfig() {
+  // set defaults only if unset
   try {
-    const existing = await fs.readFile(aPath);
-    if (Buffer.byteLength(existing) !== buf.length) return false;
-    return existing.equals(buf);
-  } catch (err) {
-    if (err.code === "ENOENT") return false;
-    throw err;
+    execSync('git config user.name', { stdio: "ignore" });
+  } catch {
+    execSync('git config user.name "github-actions[bot]"');
+  }
+  try {
+    execSync('git config user.email', { stdio: "ignore" });
+  } catch {
+    execSync('git config user.email "github-actions[bot]@users.noreply.github.com"');
   }
 }
 
 function gitCommitAndPush(changedFiles) {
   try {
-    // Configure git user if not set (safe defaults for actions)
-    try {
-      execSync('git config user.name', { stdio: "ignore" });
-    } catch {
-      execSync('git config user.name "github-actions[bot]"');
-    }
-    try {
-      execSync('git config user.email', { stdio: "ignore" });
-    } catch {
-      execSync('git config user.email "github-actions[bot]@users.noreply.github.com"');
-    }
+    ensureGitUserConfig();
 
-    // Stage changed files
-    const filesArg = changedFiles.map((f) => `"${f.replace(/"/g, '\\"')}"`).join(" ");
-    execSync(`git add ${filesArg}`, { stdio: "inherit" });
+    // Stage files safely
+    const filesArg = changedFiles.map((f) => safeQuoteForShell(f)).join(" ");
+    execSync(`git add -- ${filesArg}`, { stdio: "inherit" });
 
-    // Commit
+    // Commit — will throw if no changes
     const message = "chore: update cached README assets (automated)";
-    // If no changes to commit, git exits non-zero; we catch that gracefully
     try {
       execSync(`git commit -m "${message.replace(/"/g, '\\"')}"`, { stdio: "inherit" });
-    } catch (err) {
-      log("No commit created (maybe nothing to commit).");
+    } catch {
+      log("No commit created (nothing to commit).");
       return;
     }
 
-    // Push (uses origin HEAD)
+    // Push using default remote/branch setup in Actions
     execSync(`git push`, { stdio: "inherit" });
     log("Changes pushed.");
   } catch (err) {
-    log("Failed to commit & push changes:", err.message);
-    throw err;
+    throw new Error(`git operation failed: ${err.message}`);
   }
 }
 
-async function main() {
-  log("Starting fetch-and-commit script.");
+/* ---------- main flow with limited concurrency ---------- */
 
-  const mapping = await readMappingOrCreateSample();
-  if (!Array.isArray(mapping) || mapping.length === 0) {
-    log("No mapping entries to process. Exiting.");
+async function run() {
+  log("Starting fetch-and-commit");
+
+  const mapping = await readMappingOrFail();
+  if (mapping.length === 0) {
+    log("Mapping is empty — nothing to do.");
     return;
   }
 
   const changedFiles = [];
+  const tasks = mapping.map((entry, idx) => ({ entry, idx }));
 
-  for (let i = 0; i < mapping.length; i++) {
-    const item = mapping[i];
-    if (!item || !item.url || !item.out) {
-      log(`Skipping invalid mapping at index ${i}`);
-      continue;
+  // Simple concurrency runner
+  async function worker(job) {
+    const { entry, idx } = job;
+    if (!entry || !entry.url || !entry.out) {
+      warn(`Skipping invalid mapping at index ${idx}`);
+      return;
     }
 
-    const url = item.url;
-    const outBase = item.out;
-    log(`Processing [${i + 1}/${mapping.length}]: ${url}`);
+    const url = entry.url;
+    const outBase = entry.out;
+    log(`Processing [${idx + 1}/${mapping.length}] ${url}`);
 
     try {
       const { buffer, ctype } = await fetchWithTimeout(url, FETCH_TIMEOUT_MS);
-
       let ext = mapCTypeToExt(ctype || "");
-      if (!ext) {
-        ext = await detectExtFromBuffer(buffer);
-      }
+      if (!ext) ext = await detectExtFromBuffer(buffer);
 
       let finalOut;
       if (hasExtension(outBase)) {
-        // user provided an extension, respect it
         finalOut = outBase;
       } else {
-        if (!ext) {
-          ext = "bin";
-        }
-        finalOut = `${outBase}.${ext}`;
+        finalOut = `${outBase}.${ext || "bin"}`;
       }
 
       ensureDirSync(finalOut);
 
-      const equal = await compareBuffersEqual(finalOut, buffer);
+      const equal = await isBufferEqualToFile(finalOut, buffer);
       if (equal) {
-        log(`No change for ${finalOut}`);
+        log(`No change: ${finalOut}`);
       } else {
         await fs.writeFile(finalOut, buffer);
-        log(`Saved ${finalOut} (detected: ${ctype || "unknown"} -> .${ext})`);
+        log(`Saved: ${finalOut} (detected: ${ctype || "unknown"} -> .${path.extname(finalOut) || ""})`);
         changedFiles.push(finalOut);
       }
     } catch (err) {
-      log(`WARNING: failed to fetch ${url} — ${err.message}`);
-      continue;
+      warn(`Failed to fetch ${url}: ${err.message}`);
     }
   }
 
+  // run up to CONCURRENCY in parallel
+  const pool = new Array(CONCURRENCY).fill(null).map(async () => {
+    while (tasks.length) {
+      const job = tasks.shift();
+      // tasks.shift may return undefined if concurrently emptied
+      if (!job) break;
+      // eslint-disable-next-line no-await-in-loop
+      await worker(job);
+    }
+  });
+
+  await Promise.all(pool);
+
   if (changedFiles.length === 0) {
-    log("No files changed. Nothing to commit.");
+    log("No files changed. Exiting.");
     return;
   }
 
-  log("Files changed:", changedFiles);
+  log("Changed files:", changedFiles);
 
-  // commit & push if git available
+  // If repo/git available, commit & push
   try {
-    // check if we're in a git repo
     execSync("git rev-parse --is-inside-work-tree", { stdio: "ignore" });
     gitCommitAndPush(changedFiles);
   } catch (err) {
-    log("Git not available or not a repo — skipping commit & push. Changes are saved locally.");
-    log(err.message);
+    warn("Git not available or not a repository; changes saved locally.", err.message);
   }
 }
 
-main().catch((err) => {
-  console.error("Fatal error:", err);
+/* ---------- run ---------- */
+
+run().catch((e) => {
+  errlog("Fatal:", e && e.message ? e.message : e);
   process.exit(1);
 });
