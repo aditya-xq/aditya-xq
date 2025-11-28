@@ -2,7 +2,7 @@ name: Update Cached README Assets
 
 on:
   schedule:
-    # Runs at 02:30 UTC every day (08:00 IST)
+    # Runs at 02:30 UTC every day (09:00 IST)
     - cron: '30 2 * * *'
   workflow_dispatch:
 
