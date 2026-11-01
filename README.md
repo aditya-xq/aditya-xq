@@ -20,7 +20,7 @@
 - 🛠 Consulting on systems design, frontend architectures, and AI-enabled workflows  
 
 Give me a **problem, vision, or desired outcome** — I’ll figure out the rest.  
-Tech agnostic. Context-first. Results-driven.
+Tech-agnostic. Context-first. Results-driven.
 
 ## 📬 Contact  
 **📧 Email:** adityavivek.xq@gmail.com  
